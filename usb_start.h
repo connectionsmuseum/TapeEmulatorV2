@@ -13,12 +13,6 @@ extern "C" {
 #endif // __cplusplus
 
 #include "cdcdf_acm.h"
-#include "cdcdf_acm_desc.h"
-
-void cdcd_acm_example(void);
-void cdc_device_acm_init(void);
-
-#include "cdcdf_acm.h"
 #include "hiddf_mouse.h"
 #include "hiddf_keyboard.h"
 #include "hiddf_generic.h"
