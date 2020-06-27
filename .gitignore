@@ -1,0 +1,8 @@
+*.swp
+gcc/AtmelStart.*
+gcc/*.o
+gcc/*.d
+gcc/**/*.o
+gcc/**/*.d
+.DS_Store
+samd51_datasheet.pdf
