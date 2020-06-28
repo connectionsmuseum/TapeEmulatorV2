@@ -537,19 +537,6 @@ void system_init(void)
 
 	gpio_set_pin_function(PB05RED, GPIO_PIN_FUNCTION_OFF);
 
-	// GPIO on PB09
-
-	gpio_set_pin_level(PB09,
-	                   // <y> Initial level
-	                   // <id> pad_initial_level
-	                   // <false"> Low
-	                   // <true"> High
-	                   false);
-
-	// Set pin direction to output
-	gpio_set_pin_direction(PB09, GPIO_DIRECTION_OUT);
-
-	gpio_set_pin_function(PB09, GPIO_PIN_FUNCTION_OFF);
 
 	EXTERNAL_IRQ_0_init();
 
