@@ -146,32 +146,16 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_trng_d51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_usb_d51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_wdt_d51.h"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_device_composite.rst"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_device_cdc.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_device_core.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_cdc.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_core.rst"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_hid.rst"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_hub.rst"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_msc.rst"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_vendor.rst"/>
+        <file category="other" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device/atmel_devices_cdc.cat"/>
+        <file category="other" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device/atmel_devices_cdc.inf"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device/cdcdf_acm.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device/cdcdf_acm.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device/cdcdf_acm_desc.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/cdc/usb_protocol_cdc.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/composite/device/composite_desc.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_generic.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_generic.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_keyboard.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_keyboard.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_mouse.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/hid/device/hiddf_mouse.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/hid/usb_protocol_hid.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/hub/usb_protocol_hub.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="usb/class/msc/device/mscdf.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/msc/device/mscdf.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/msc/sbc_protocol.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/msc/spc_protocol.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/msc/usb_protocol_msc.h"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/vendor/usb_protocol_vendor.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="usb/device/usbdc.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/device/usbdc.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_atmel.h"/>
@@ -268,13 +252,6 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="usb"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/cdc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/composite/device"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/hid"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/hid/device"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/hub"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/msc"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/msc/device"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/vendor"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/device"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
       </files>

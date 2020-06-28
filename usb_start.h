@@ -13,28 +13,10 @@ extern "C" {
 #endif // __cplusplus
 
 #include "cdcdf_acm.h"
-#include "hiddf_mouse.h"
-#include "hiddf_keyboard.h"
-#include "hiddf_generic.h"
-#include "mscdf.h"
-#include "composite_desc.h"
+#include "cdcdf_acm_desc.h"
 
-/**
- * \brief Initialize device and attach functions
- */
-void composite_device_init(void);
-/**
- * \brief Start the device
- */
-void composite_device_start(void);
-/**
- * Example of using Composite Function.
- * \note
- * In this example, we will use a PC as a USB host:
- * - Connect the DEBUG USB on XPLAINED board to PC for program download.
- * - Connect the TARGET USB on XPLAINED board to PC for running program.
- */
-void composite_device_example(void);
+void cdcd_acm_example(void);
+void cdc_device_acm_init(void);
 
 /**
  * \berif Initialize USB
