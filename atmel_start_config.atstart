@@ -26,44 +26,12 @@ middlewares:
     functionality: USB_Chapter_9
     api: USB:Protocol:Core
     dependencies: {}
-  USB_CLASS_HUB:
-    user_label: USB_CLASS_HUB
-    configuration: {}
-    definition: Atmel:USB:0.0.1::USB_Class_HUB
-    functionality: USB_Class_HUB
-    api: USB:Protocol:HUB
-    dependencies:
-      USB Chapter 9: USB_CHAPTER_9
-  USB_CLASS_HID:
-    user_label: USB_CLASS_HID
-    configuration: {}
-    definition: Atmel:USB:0.0.1::USB_Class_HID
-    functionality: USB_Class_HID
-    api: USB:Protocol:HID
-    dependencies:
-      USB Chapter 9: USB_CHAPTER_9
-  USB_CLASS_CDC_0:
-    user_label: USB_CLASS_CDC_0
+  USB_CLASS_CDC:
+    user_label: USB_CLASS_CDC
     configuration: {}
     definition: Atmel:USB:0.0.1::USB_Class_CDC
     functionality: USB_Class_CDC
     api: USB:Protocol:CDC
-    dependencies:
-      USB Chapter 9: USB_CHAPTER_9
-  USB_CLASS_MASS_STORAGE_MSC_0:
-    user_label: USB_CLASS_MASS_STORAGE_MSC_0
-    configuration: {}
-    definition: Atmel:USB:0.0.1::USB_Class_MSC
-    functionality: USB_Class_Mass_Storage_(MSC)
-    api: USB:Protocol:MSC
-    dependencies:
-      USB Chapter 9: USB_CHAPTER_9
-  USB_CLASS_VENDOR:
-    user_label: USB_CLASS_VENDOR
-    configuration: {}
-    definition: Atmel:USB:0.0.1::USB_Class_VENDOR
-    functionality: USB_Class_VENDOR
-    api: USB:Protocol:VENDOR
     dependencies:
       USB Chapter 9: USB_CHAPTER_9
   USB_DEVICE_STACK_CORE_INSTANCE:
@@ -76,81 +44,49 @@ middlewares:
     dependencies:
       USB Chapter 9: USB_CHAPTER_9
       USB Device instance: USB_0
-  USB_DEVICE_COMPOSITE_0:
-    user_label: USB_DEVICE_COMPOSITE_0
+  USB_DEVICE_CDC_ACM_0:
+    user_label: USB_DEVICE_CDC_ACM_0
     configuration:
-      conf_usb_composite_cdc_echo_demo: false
-      conf_usb_composite_hid_keyboard_demo: false
-      conf_usb_composite_hid_mouse_demo: false
-      conf_usb_msc_lun0_capacity: 22
-      conf_usb_msc_lun0_enable: true
-      conf_usb_msc_lun0_rmb: true
-      conf_usb_msc_lun1_enable: false
-      conf_usb_msc_lun1_rmb: true
-      conf_usb_msc_lun2_capacity: 22
-      conf_usb_msc_lun2_enable: false
-      conf_usb_msc_lun2_rmb: true
-      conf_usb_msc_lun3_capacity: 22
-      conf_usb_msc_lun3_enable: false
-      conf_usb_msc_lun3_rmb: true
-      conf_usb_msc_lun_buf_sectors: 4
-      usb_composite_bcddevice: 256
-      usb_composite_bcdusb: USB 2.0 version
-      usb_composite_bconfigval: 1
-      usb_composite_bmattri: Bus power supply, not support for remote wakeup
-      usb_composite_bmaxpksz0: 64 bytes
-      usb_composite_bmaxpower: 50
-      usb_composite_bnumconfig: 1
-      usb_composite_cdc_acm_comm_int_maxpksz: 64 bytes
-      usb_composite_cdc_acm_data_buckout_maxpksz: 64 bytes
-      usb_composite_cdc_acm_data_buckout_maxpksz_hs: 512 bytes
-      usb_composite_cdc_acm_data_builin_maxpksz: 64 bytes
-      usb_composite_cdc_acm_data_builin_maxpksz_hs: 512 bytes
-      usb_composite_cdc_acm_data_bulkin_epaddr: EndpointAddress = 0x81
-      usb_composite_cdc_acm_data_bulkout_epaddr: EndpointAddress = 0x01
-      usb_composite_cdc_acm_epaddr: EndpointAddress = 0x82
-      usb_composite_cdc_acm_support: true
-      usb_composite_hid_generic_intin_epaddr: EndpointAddress = 0x85
-      usb_composite_hid_generic_intin_maxpksz: 64 bytes
-      usb_composite_hid_generic_intout_epaddr: EndpointAddress = 0x03
-      usb_composite_hid_generic_intout_maxpksz: 64 bytes
-      usb_composite_hid_generic_support: false
-      usb_composite_hid_keyboard_intin_epaddr: EndpointAddress = 0x84
-      usb_composite_hid_keyboard_intin_maxpksz: 8 bytes
-      usb_composite_hid_keyboard_intout_epaddr: EndpointAddress = 0x02
-      usb_composite_hid_keyboard_intout_maxpksz: 8 bytes
-      usb_composite_hid_keyboard_support: false
-      usb_composite_hid_mouse_intin_epaddr: EndpointAddress = 0x83
-      usb_composite_hid_mouse_intin_maxpksz: 8 bytes
-      usb_composite_hid_mouse_support: false
-      usb_composite_iconfig_en: false
-      usb_composite_iconfig_str: ''
-      usb_composite_idproduct: 9249
-      usb_composite_idvender: 1003
-      usb_composite_imanufact_en: true
-      usb_composite_imanufact_str: Connections Museum
-      usb_composite_iproduct_en: true
-      usb_composite_iproduct_str: 3ESS Tape Emulator
-      usb_composite_iserialnum_en: false
-      usb_composite_iserialnum_str: 123456789ABCDEF
-      usb_composite_langid: '0x0409'
-      usb_composite_msc_bulk_maxpksz: 64 bytes
-      usb_composite_msc_bulk_maxpksz_hs: 512 bytes
-      usb_composite_msc_bulkin_epaddr: EndpointAddress = 0x86
-      usb_composite_msc_bulkout_epaddr: EndpointAddress = 0x04
-      usb_composite_msc_demo_en: true
-      usb_composite_msc_support: false
-      usb_composite_str_en: true
-    definition: Atmel:USB:0.0.1::USB_Device_Composite
-    functionality: USB_Device_COMPOSITE
-    api: USB:Device:COMPOSITE
+      usb_cdcd_acm_bcddevice: 273
+      usb_cdcd_acm_bcdusb: USB 2.0 version
+      usb_cdcd_acm_bconfigval: 1
+      usb_cdcd_acm_bmattri: Self powered, not support for remote wakeup
+      usb_cdcd_acm_bmaxpksz0: 64 bytes
+      usb_cdcd_acm_bmaxpower: 50
+      usb_cdcd_acm_bnumconfig: 1
+      usb_cdcd_acm_comm_baltset: 0
+      usb_cdcd_acm_comm_bifcnum: 0
+      usb_cdcd_acm_comm_iifc: 0
+      usb_cdcd_acm_comm_int_interval: 10
+      usb_cdcd_acm_comm_int_maxpksz: 64 bytes
+      usb_cdcd_acm_data_baltset: 0
+      usb_cdcd_acm_data_bifcnum: 1
+      usb_cdcd_acm_data_buckout_maxpksz: 64 bytes
+      usb_cdcd_acm_data_buckout_maxpksz_hs: 512 bytes
+      usb_cdcd_acm_data_builin_maxpksz: 64 bytes
+      usb_cdcd_acm_data_builin_maxpksz_hs: 512 bytes
+      usb_cdcd_acm_data_bulkin_epaddr: EndpointAddress = 0x81
+      usb_cdcd_acm_data_bulkout_epaddr: EndpointAddress = 0x01
+      usb_cdcd_acm_data_iifc: 0
+      usb_cdcd_acm_epaddr: EndpointAddress = 0x82
+      usb_cdcd_acm_iconfig_en: false
+      usb_cdcd_acm_iconfig_str: ''
+      usb_cdcd_acm_idproduct: 9220
+      usb_cdcd_acm_idvender: 1003
+      usb_cdcd_acm_imanufact_en: false
+      usb_cdcd_acm_imanufact_str: Atmel
+      usb_cdcd_acm_iproduct_en: true
+      usb_cdcd_acm_iproduct_str: 3ESS Tape Emulator
+      usb_cdcd_acm_iserialnum_en: false
+      usb_cdcd_acm_iserialnum_str: 123456789ABCDEF
+      usb_cdcd_acm_langid: '0x0409'
+      usb_cdcd_acm_str_en: true
+    definition: Atmel:USB:0.0.1::USB_Device_CDC_ACM
+    functionality: USB_Device_CDC_ACM
+    api: USB:Device:CDC_ACM
     dependencies:
-      USB Class MSC: USB_CLASS_MASS_STORAGE_MSC_0
-      USB Class CDC: USB_CLASS_CDC_0
       USB Device Stack Core Instance: USB_DEVICE_STACK_CORE_INSTANCE
-      USB Class VENDOR: USB_CLASS_VENDOR
-      USB Class HID: USB_CLASS_HID
-      USB Class HUB: USB_CLASS_HUB
+      USB Class CDC: USB_CLASS_CDC
 drivers:
   CMCC:
     user_label: CMCC

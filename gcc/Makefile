@@ -39,19 +39,17 @@ hpl/oscctrl \
 hpl/sdhc \
 hpl/osc32kctrl \
 usb \
-usb/class/msc/device \
+hpl/dmac \
 hal/src \
 samd51a/gcc \
 hal/utils/src \
 hpl/rtc \
-usb/class/hid/device \
 hpl/usb \
 hpl/pm \
 hpl/cmcc \
 hpl/gclk \
-usb/device \
 hpl/mclk \
-hpl/dmac \
+usb/device \
 hpl/sercom \
 hpl/eic \
 hpl/core
@@ -59,7 +57,6 @@ hpl/core
 # List the object files
 OBJS +=  \
 hal/src/hal_io.o \
-usb/class/hid/device/hiddf_generic.o \
 hal/src/hal_spi_m_dma.o \
 samd51a/gcc/system_samd51.o \
 hpl/eic/hpl_eic.o \
@@ -68,7 +65,6 @@ hpl/core/hpl_core_m4.o \
 hal/src/hal_cache.o \
 usb/class/cdc/device/cdcdf_acm.o \
 hal/utils/src/utils_syscalls.o \
-usb/class/msc/device/mscdf.o \
 hal/src/hal_timer.o \
 hal/src/hal_mci_sync.o \
 hpl/usb/hpl_usb.o \
@@ -77,11 +73,9 @@ hpl/pm/hpl_pm.o \
 hpl/core/hpl_init.o \
 hpl/ramecc/hpl_ramecc.o \
 hal/utils/src/utils_list.o \
-usb/class/hid/device/hiddf_mouse.o \
 hal/utils/src/utils_assert.o \
 usb_start.o \
 hpl/sdhc/hpl_sdhc.o \
-usb/class/hid/device/hiddf_keyboard.o \
 hpl/mclk/hpl_mclk.o \
 hpl/sercom/hpl_sercom.o \
 hpl/gclk/hpl_gclk.o \
@@ -108,7 +102,6 @@ hpl/cmcc/hpl_cmcc.o
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
-"usb/class/hid/device/hiddf_generic.o" \
 "hal/src/hal_spi_m_dma.o" \
 "samd51a/gcc/system_samd51.o" \
 "hpl/eic/hpl_eic.o" \
@@ -117,7 +110,6 @@ OBJS_AS_ARGS +=  \
 "hal/src/hal_cache.o" \
 "usb/class/cdc/device/cdcdf_acm.o" \
 "hal/utils/src/utils_syscalls.o" \
-"usb/class/msc/device/mscdf.o" \
 "hal/src/hal_timer.o" \
 "hal/src/hal_mci_sync.o" \
 "hpl/usb/hpl_usb.o" \
@@ -126,11 +118,9 @@ OBJS_AS_ARGS +=  \
 "hpl/core/hpl_init.o" \
 "hpl/ramecc/hpl_ramecc.o" \
 "hal/utils/src/utils_list.o" \
-"usb/class/hid/device/hiddf_mouse.o" \
 "hal/utils/src/utils_assert.o" \
 "usb_start.o" \
 "hpl/sdhc/hpl_sdhc.o" \
-"usb/class/hid/device/hiddf_keyboard.o" \
 "hpl/mclk/hpl_mclk.o" \
 "hpl/sercom/hpl_sercom.o" \
 "hpl/gclk/hpl_gclk.o" \
@@ -184,13 +174,6 @@ DIR_INCLUDES +=  \
 -I"../usb" \
 -I"../usb/class/cdc" \
 -I"../usb/class/cdc/device" \
--I"../usb/class/composite/device" \
--I"../usb/class/hid" \
--I"../usb/class/hid/device" \
--I"../usb/class/hub" \
--I"../usb/class/msc" \
--I"../usb/class/msc/device" \
--I"../usb/class/vendor" \
 -I"../usb/device" \
 -I"../" \
 -I"../CMSIS/Core/Include" \
@@ -210,16 +193,13 @@ DEPS_AS_ARGS +=  \
 "samd51a/gcc/system_samd51.d" \
 "hal/src/hal_spi_m_dma.d" \
 "hpl/usb/hpl_usb.d" \
-"usb/class/msc/device/mscdf.d" \
 "hal/src/hal_mci_sync.d" \
 "hal/src/hal_timer.d" \
-"usb/class/hid/device/hiddf_mouse.d" \
 "hal/utils/src/utils_list.d" \
 "hpl/sdhc/hpl_sdhc.d" \
 "usb_start.d" \
 "hal/utils/src/utils_assert.d" \
 "hpl/cmcc/hpl_cmcc.d" \
-"usb/class/hid/device/hiddf_generic.d" \
 "hal/src/hal_delay.d" \
 "hpl/core/hpl_init.d" \
 "hpl/pm/hpl_pm.d" \
@@ -228,7 +208,6 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_usb_device.d" \
 "hpl/dmac/hpl_dmac.d" \
 "hal/src/hal_init.d" \
-"usb/class/hid/device/hiddf_keyboard.d" \
 "hpl/mclk/hpl_mclk.d" \
 "driver_init.d" \
 "hpl/osc32kctrl/hpl_osc32kctrl.d" \
