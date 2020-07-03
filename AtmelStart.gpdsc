@@ -163,6 +163,10 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_includes.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="usb/usb_protocol.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_protocol.h"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/sd_mmc.rst"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="sd_mmc/sd_mmc.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="sd_mmc/sd_mmc.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="sd_mmc/sd_mmc_protocol.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="main.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="driver_init.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="driver_init.h"/>
@@ -208,6 +212,8 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/usb/hpl_usb.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="usb_start.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb_start.h"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="sd_mmc_start.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="sd_mmc_start.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="atmel_start.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="atmel_start.c"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_cmcc_config.h"/>
@@ -225,6 +231,7 @@
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_usb_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/peripheral_clk_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/usbd_config.h"/>
+        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/conf_sd_mmc.h"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
         <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="examples"/>
@@ -253,6 +260,9 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/cdc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/cdc/device"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="usb/device"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name=""/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="sd_mmc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
       </files>
     </component>
