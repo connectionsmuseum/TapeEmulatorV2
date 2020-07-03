@@ -509,6 +509,21 @@ void system_init(void)
 {
 	init_mcu();
 
+	// GPIO on PA12
+
+	// Set pin direction to input
+	gpio_set_pin_direction(CARD_DETECT_0, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(CARD_DETECT_0,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(CARD_DETECT_0, GPIO_PIN_FUNCTION_OFF);
+
 	// GPIO on PB04
 
 	gpio_set_pin_level(PB04GREEN,
@@ -550,6 +565,21 @@ void system_init(void)
 	gpio_set_pin_direction(PB09, GPIO_DIRECTION_OUT);
 
 	gpio_set_pin_function(PB09, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PB13
+
+	// Set pin direction to input
+	gpio_set_pin_direction(WRITE_PROTECT_0, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(WRITE_PROTECT_0,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(WRITE_PROTECT_0, GPIO_PIN_FUNCTION_OFF);
 
 	EXTERNAL_IRQ_0_init();
 

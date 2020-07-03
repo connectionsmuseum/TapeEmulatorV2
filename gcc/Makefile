@@ -34,6 +34,7 @@ samd51a/gcc/gcc \
 usb/class/cdc/device \
 hpl/ramecc \
 hpl/evsys \
+sd_mmc \
 examples \
 hpl/oscctrl \
 hpl/sdhc \
@@ -57,6 +58,7 @@ hpl/core
 # List the object files
 OBJS +=  \
 hal/src/hal_io.o \
+sd_mmc_start.o \
 hal/src/hal_spi_m_dma.o \
 samd51a/gcc/system_samd51.o \
 hpl/eic/hpl_eic.o \
@@ -65,6 +67,7 @@ hpl/core/hpl_core_m4.o \
 hal/src/hal_cache.o \
 usb/class/cdc/device/cdcdf_acm.o \
 hal/utils/src/utils_syscalls.o \
+sd_mmc/sd_mmc.o \
 hal/src/hal_timer.o \
 hal/src/hal_mci_sync.o \
 hpl/usb/hpl_usb.o \
@@ -102,6 +105,7 @@ hpl/cmcc/hpl_cmcc.o
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
+"sd_mmc_start.o" \
 "hal/src/hal_spi_m_dma.o" \
 "samd51a/gcc/system_samd51.o" \
 "hpl/eic/hpl_eic.o" \
@@ -110,6 +114,7 @@ OBJS_AS_ARGS +=  \
 "hal/src/hal_cache.o" \
 "usb/class/cdc/device/cdcdf_acm.o" \
 "hal/utils/src/utils_syscalls.o" \
+"sd_mmc/sd_mmc.o" \
 "hal/src/hal_timer.o" \
 "hal/src/hal_mci_sync.o" \
 "hpl/usb/hpl_usb.o" \
@@ -176,6 +181,9 @@ DIR_INCLUDES +=  \
 -I"../usb/class/cdc/device" \
 -I"../usb/device" \
 -I"../" \
+-I"../config" \
+-I"../sd_mmc" \
+-I"../" \
 -I"../CMSIS/Core/Include" \
 -I"../samd51a/include"
 
@@ -190,9 +198,11 @@ DEPS_AS_ARGS +=  \
 "hpl/eic/hpl_eic.d" \
 "hal/utils/src/utils_syscalls.d" \
 "usb/class/cdc/device/cdcdf_acm.d" \
+"sd_mmc_start.d" \
 "samd51a/gcc/system_samd51.d" \
 "hal/src/hal_spi_m_dma.d" \
 "hpl/usb/hpl_usb.d" \
+"sd_mmc/sd_mmc.d" \
 "hal/src/hal_mci_sync.d" \
 "hal/src/hal_timer.d" \
 "hal/utils/src/utils_list.d" \

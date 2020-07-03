@@ -87,6 +87,24 @@ middlewares:
     dependencies:
       USB Device Stack Core Instance: USB_DEVICE_STACK_CORE_INSTANCE
       USB Class CDC: USB_CLASS_CDC
+  SDMMC_ACCESS_0:
+    user_label: SDMMC_ACCESS_0
+    configuration:
+      conf_mmc_support: false
+      conf_sd_mmc_0_cd_detect_en: true
+      conf_sd_mmc_0_cd_detect_value: Low
+      conf_sd_mmc_0_enable: true
+      conf_sd_mmc_0_wp_detect_en: true
+      conf_sd_mmc_0_wp_detect_value: High
+      conf_sd_mmc_os_support: false
+      conf_sdio_support: false
+    definition: Atmel:SD_MMC:0.0.1::SD_MMC
+    functionality: SD/MMC_Access
+    api: SD-MMC:Lib:API
+    dependencies:
+      IO Bus: MCI_0
+      Write Protect 0: WRITE_PROTECT_0
+      Card Detect 0: CARD_DETECT_0
 drivers:
   CMCC:
     user_label: CMCC
@@ -1740,6 +1758,18 @@ pads:
     mode: Advanced
     user_label: PB11
     configuration: null
+  WRITE_PROTECT_0:
+    name: PB13
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PB13
+    mode: Digital input
+    user_label: WRITE_PROTECT_0
+    configuration: {}
+  CARD_DETECT_0:
+    name: PA12
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PA12
+    mode: Digital input
+    user_label: CARD_DETECT_0
+    configuration: {}
   PA16:
     name: PA16
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PA16
