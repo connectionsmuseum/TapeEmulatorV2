@@ -1,5 +1,6 @@
 #include <atmel_start.h>
 #include "usb_start.h"
+#include "sd_mmc.h"
 
 static void tx_complete(struct _dma_resource *resource) {
     // gpio_set_pin_level(PB04GREEN, true);
@@ -12,6 +13,7 @@ int main(void)
 {
     struct io_descriptor *io;
     char usb_printbuf[200];
+    uint32_t sd_cap;
 
     /* Initializes MCU, drivers and middleware */
     atmel_start_init();
@@ -28,12 +30,21 @@ int main(void)
     while (1) {
         if (cdcdf_acm_is_enabled()) {
             snprintf(usb_printbuf, 99, "Loop \n\r");
+            cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
+
+        }
+
+        if (SD_MMC_OK == sd_mmc_check(0)) {
             gpio_set_pin_level(PB04GREEN, true);
+            sd_cap = sd_mmc_get_capacity(0);
+            snprintf(usb_printbuf, 99, "SD Cap %lu \n\r", sd_cap);
             cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
         }
+
         gpio_set_pin_level(PB05RED, true);
         gpio_set_pin_level(TTBOTA0, true);
-        io_write(io, debug_buf, 8);
+        // io_write(io, debug_buf, 8);
+
         delay_ms(300);
 
         gpio_set_pin_level(PB05RED, false);
