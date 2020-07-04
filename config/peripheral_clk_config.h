@@ -702,7 +702,7 @@
 // <i> Select the clock source for SDHC.
 // <id> sdhc_slow_gclk_selection
 #ifndef CONF_GCLK_SDHC0_SLOW_SRC
-#define CONF_GCLK_SDHC0_SLOW_SRC GCLK_PCHCTRL_GEN_GCLK1_Val
+#define CONF_GCLK_SDHC0_SLOW_SRC GCLK_PCHCTRL_GEN_GCLK3_Val
 #endif
 // </h>
 
@@ -719,7 +719,7 @@
  * \brief SDHC's Clock slow frequency
  */
 #ifndef CONF_SDHC0_SLOW_FREQUENCY
-#define CONF_SDHC0_SLOW_FREQUENCY 48000000
+#define CONF_SDHC0_SLOW_FREQUENCY 32768
 #endif
 
 // <y> USB Clock Source

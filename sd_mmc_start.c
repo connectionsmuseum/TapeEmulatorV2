@@ -14,13 +14,13 @@
 /* Card Detect (CD) pin settings */
 static sd_mmc_detect_t SDMMC_ACCESS_0_cd[CONF_SD_MMC_MEM_CNT] = {
 
-    {CARD_DETECT_0, CONF_SD_MMC_0_CD_DETECT_VALUE},
+    {-1, CONF_SD_MMC_0_CD_DETECT_VALUE},
 };
 
 /* Write Protect (WP) pin settings */
 static sd_mmc_detect_t SDMMC_ACCESS_0_wp[CONF_SD_MMC_MEM_CNT] = {
 
-    {WRITE_PROTECT_0, CONF_SD_MMC_0_WP_DETECT_VALUE},
+    {-1, CONF_SD_MMC_0_WP_DETECT_VALUE},
 };
 
 static uint8_t sd_mmc_block[512];

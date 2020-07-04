@@ -41,7 +41,7 @@
 // <e> Card Detect (CD) 0 Enable
 // <id> conf_sd_mmc_0_cd_detect_en
 #ifndef CONF_SD_MMC_0_CD_DETECT_EN
-#define CONF_SD_MMC_0_CD_DETECT_EN 1
+#define CONF_SD_MMC_0_CD_DETECT_EN 0
 #endif
 
 // <o> Card Detect (CD) detection level
@@ -56,7 +56,7 @@
 // <e> Write Protect (WP) 0 Enable
 // <id> conf_sd_mmc_0_wp_detect_en
 #ifndef CONF_SD_MMC_0_WP_DETECT_EN
-#define CONF_SD_MMC_0_WP_DETECT_EN 1
+#define CONF_SD_MMC_0_WP_DETECT_EN 0
 #endif
 
 // <o> Write Protect (WP) detection level
