@@ -53,7 +53,8 @@ hpl/mclk \
 usb/device \
 hpl/sercom \
 hpl/eic \
-hpl/core
+hpl/core \
+fatFS
 
 # List the object files
 OBJS +=  \
@@ -101,7 +102,11 @@ hpl/dmac/hpl_dmac.o \
 samd51a/gcc/gcc/startup_samd51.o \
 atmel_start.o \
 usb/device/usbdc.o \
-hpl/cmcc/hpl_cmcc.o
+hpl/cmcc/hpl_cmcc.o \
+fatFS/diskio.o \
+fatFS/ff.o \
+fatFS/ffsystem.o \
+fatFS/ffunicode.o
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -148,7 +153,11 @@ OBJS_AS_ARGS +=  \
 "samd51a/gcc/gcc/startup_samd51.o" \
 "atmel_start.o" \
 "usb/device/usbdc.o" \
-"hpl/cmcc/hpl_cmcc.o"
+"hpl/cmcc/hpl_cmcc.o" \
+"fatFS/diskio.o" \
+"fatFS/ff.o" \
+"fatFS/ffsystem.o" \
+"fatFS/ffunicode.o"
 
 # List the directories containing header files
 DIR_INCLUDES +=  \
@@ -185,7 +194,8 @@ DIR_INCLUDES +=  \
 -I"../sd_mmc" \
 -I"../" \
 -I"../CMSIS/Core/Include" \
--I"../samd51a/include"
+-I"../samd51a/include" \
+-I"../fatFS" \
 
 # List the dependency files
 DEPS := $(OBJS:%.o=%.d)
@@ -235,7 +245,11 @@ DEPS_AS_ARGS +=  \
 "usb/device/usbdc.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
 "samd51a/gcc/gcc/startup_samd51.d" \
-"hpl/sercom/hpl_sercom.d"
+"hpl/sercom/hpl_sercom.d" \
+"fatFS/diskio.d" \
+"fatFS/ff.d" \
+"fatFS/ffsystem.d" \
+"fatFS/ffunicode.d"
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
