@@ -4,7 +4,7 @@
 #include "fatFS/ff.h"
 #include "block_transfer.h"
 #include "tape_states.h"
-#include main.h
+#include "main.h"
 
 static void tx_complete(struct _dma_resource *resource) {
     // gpio_set_pin_level(PB04GREEN, true);
@@ -20,7 +20,7 @@ FATFS FatFs;
 
 bool d12_state = false;
 bool d13_state = false;
-bool d35_state = false;
+bool pb04_state = false;
 int tape_state = STATE_IDLE;
 int tape_position = 0;
 int read_track = 0;
@@ -370,11 +370,9 @@ int main(void)
     timer_start(&TIMER_1);
 
 
-    composite_device_start();
-
     result = f_mount(&FatFs, "", 0);
 
-    init_block_buffer(&SPI_1);
+    init_block_buffer(&SPI_0);
 
     ext_irq_register(TTINIT0, init_interrupt);
 
@@ -400,6 +398,7 @@ int main(void)
             debug_tick_flag = 0;
             // flash_pin(D13, &d13_state);
             // flash_pin(D35, &d35_state);
+            flash_pin(PB04GREEN, &pb04_state);
             // Print some status to USB.
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
@@ -433,7 +432,6 @@ int main(void)
 //
 int debugging_main(void)
 {
-    struct io_descriptor *io;
     char usb_printbuf[200];
     uint32_t sd_cap;
     FRESULT fatfs_result;
@@ -442,10 +440,6 @@ int debugging_main(void)
 
     /* Initializes MCU, drivers and middleware */
     atmel_start_init();
-
-    // spi_m_dma_register_callback(&SPI_0, SPI_M_DMA_CB_TX_DONE, tx_complete);
-    spi_m_dma_get_io_descriptor(&SPI_0, &io);
-    spi_m_dma_enable(&SPI_0);
 
         if (cdcdf_acm_is_enabled()) {
             snprintf(usb_printbuf, 99, "*** Initializing *** \n\r");
@@ -474,7 +468,6 @@ int debugging_main(void)
 
         gpio_set_pin_level(PB05RED, true);
         gpio_set_pin_level(TTBOTA0, true);
-        // io_write(io, debug_buf, 8);
 
         delay_ms(300);
 
