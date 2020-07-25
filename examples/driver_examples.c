@@ -10,11 +10,17 @@
 #include "driver_init.h"
 #include "utils.h"
 
+static void button_on_PB22_pressed(void)
+{
+}
+
 /**
  * Example of using EXTERNAL_IRQ_0
  */
 void EXTERNAL_IRQ_0_example(void)
 {
+
+	ext_irq_register(PIN_PB22, button_on_PB22_pressed);
 }
 
 static struct timer_task TIMER_0_task1, TIMER_0_task2;
@@ -67,4 +73,31 @@ void SPI_0_example(void)
 	spi_m_dma_register_callback(&SPI_0, SPI_M_DMA_CB_TX_DONE, tx_complete_cb_SPI_0);
 	spi_m_dma_enable(&SPI_0);
 	io_write(io, example_SPI_0, 12);
+}
+
+static struct timer_task TIMER_1_task1, TIMER_1_task2;
+
+/**
+ * Example of using TIMER_1.
+ */
+static void TIMER_1_task1_cb(const struct timer_task *const timer_task)
+{
+}
+
+static void TIMER_1_task2_cb(const struct timer_task *const timer_task)
+{
+}
+
+void TIMER_1_example(void)
+{
+	TIMER_1_task1.interval = 100;
+	TIMER_1_task1.cb       = TIMER_1_task1_cb;
+	TIMER_1_task1.mode     = TIMER_TASK_REPEAT;
+	TIMER_1_task2.interval = 200;
+	TIMER_1_task2.cb       = TIMER_1_task2_cb;
+	TIMER_1_task2.mode     = TIMER_TASK_REPEAT;
+
+	timer_add_task(&TIMER_1, &TIMER_1_task1);
+	timer_add_task(&TIMER_1, &TIMER_1_task2);
+	timer_start(&TIMER_1);
 }

@@ -2,16 +2,16 @@ format_version: '2'
 name: TapeEmulatorV2
 versions:
   api: '1.0'
-  backend: 1.7.360
-  commit: 1e07622763d149970fd8808a8f12ff3b1e84e0d7
+  backend: 1.7.391
+  commit: d4b7e9f65a05ebffcb0986e4060cb8c0a313e69a
   content: unknown
   content_pack_name: unknown
   format: '2'
   frontend: 1.7.360
-  packs_version_avr8: 1.0.1415
+  packs_version_avr8: 1.0.1421
   packs_version_qtouch: unknown
-  packs_version_sam: 1.0.1622
-  version_backend: 1.7.360
+  packs_version_sam: 1.0.1658
+  version_backend: 1.7.391
   version_frontend: ''
 board:
   identifier: CustomBoard
@@ -676,7 +676,7 @@ drivers:
       eic_arch_asynch3: false
       eic_arch_asynch4: false
       eic_arch_asynch5: false
-      eic_arch_asynch6: false
+      eic_arch_asynch6: true
       eic_arch_asynch7: false
       eic_arch_asynch8: false
       eic_arch_asynch9: false
@@ -709,7 +709,7 @@ drivers:
       eic_arch_enable_irq_setting3: false
       eic_arch_enable_irq_setting4: false
       eic_arch_enable_irq_setting5: false
-      eic_arch_enable_irq_setting6: false
+      eic_arch_enable_irq_setting6: true
       eic_arch_enable_irq_setting7: false
       eic_arch_enable_irq_setting8: false
       eic_arch_enable_irq_setting9: false
@@ -763,14 +763,21 @@ drivers:
       eic_arch_sense3: No detection
       eic_arch_sense4: No detection
       eic_arch_sense5: No detection
-      eic_arch_sense6: No detection
+      eic_arch_sense6: Falling-edge detection
       eic_arch_sense7: No detection
       eic_arch_sense8: No detection
       eic_arch_sense9: No detection
       eic_arch_states0: '3'
       eic_arch_states1: '3'
       eic_arch_tickon: The sampling rate is EIC clock
-    optional_signals: []
+    optional_signals:
+    - identifier: EXTERNAL_IRQ_0:EXTINT/6
+      pad: PB22
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::optional_signal_definition::EIC.EXTINT.6
+      name: EIC/EXTINT/6
+      label: EXTINT/6
     variant: null
     clocks:
       domain_group:
@@ -1660,6 +1667,37 @@ drivers:
         configuration:
           sdhc_gclk_selection: Generic clock generator 1
           sdhc_slow_gclk_selection: Generic clock generator 3
+  TIMER_1:
+    user_label: TIMER_1
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::TC0::driver_config_definition::Timer::HAL:Driver:Timer
+    functionality: Timer
+    api: HAL:Driver:Timer
+    configuration:
+      tc_arch_dbgrun: false
+      tc_arch_evact: Event action disabled
+      tc_arch_mceo0: false
+      tc_arch_mceo1: false
+      tc_arch_ondemand: false
+      tc_arch_ovfeo: false
+      tc_arch_presync: Reload or reset counter on next GCLK
+      tc_arch_runstdby: false
+      tc_arch_tcei: false
+      tc_arch_tcinv: false
+      timer_advanced_configuration: false
+      timer_event_control: false
+      timer_prescaler: Divide by 8
+      timer_tick: 100
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC
+          input: Generic clock generator 1
+          external: false
+          external_frequency: 0
+        configuration:
+          tc_gclk_selection: Generic clock generator 1
   USB_0:
     user_label: USB_0
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::USB::driver_config_definition::USB.Device::HAL:Driver:USB.Device
@@ -1803,5 +1841,11 @@ pads:
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PA25
     mode: Advanced
     user_label: PA25
+    configuration: null
+  TTINIT0:
+    name: PB22
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PB22
+    mode: Digital input
+    user_label: TTINIT0
     configuration: null
 toolchain_options: []

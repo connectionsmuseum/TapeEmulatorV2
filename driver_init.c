@@ -14,6 +14,7 @@
 #include <hpl_rtc_base.h>
 
 struct timer_descriptor TIMER_0;
+struct timer_descriptor TIMER_1;
 
 struct spi_m_dma_descriptor SPI_0;
 
@@ -23,6 +24,19 @@ void EXTERNAL_IRQ_0_init(void)
 {
 	hri_gclk_write_PCHCTRL_reg(GCLK, EIC_GCLK_ID, CONF_GCLK_EIC_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
 	hri_mclk_set_APBAMASK_EIC_bit(MCLK);
+
+	// Set pin direction to input
+	gpio_set_pin_direction(TTINIT0, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(TTINIT0,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(TTINIT0, PINMUX_PB22A_EIC_EXTINT6);
 
 	ext_irq_init();
 }
@@ -390,6 +404,19 @@ void MCI_0_init(void)
 	MCI_0_PORT_init();
 }
 
+/**
+ * \brief Timer initialization function
+ *
+ * Enables Timer peripheral, clocks and initializes Timer driver
+ */
+static void TIMER_1_init(void)
+{
+	hri_mclk_set_APBAMASK_TC0_bit(MCLK);
+	hri_gclk_write_PCHCTRL_reg(GCLK, TC0_GCLK_ID, CONF_GCLK_TC0_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+
+	timer_init(&TIMER_1, TC0, _tc_get_timer());
+}
+
 void USB_0_PORT_init(void)
 {
 
@@ -578,5 +605,6 @@ void system_init(void)
 
 	MCI_0_init();
 
+	TIMER_1_init();
 	USB_0_init();
 }

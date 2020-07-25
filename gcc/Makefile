@@ -38,6 +38,7 @@ sd_mmc \
 examples \
 hpl/oscctrl \
 hpl/sdhc \
+hpl/tc \
 hpl/osc32kctrl \
 usb \
 hpl/dmac \
@@ -69,6 +70,7 @@ hal/src/hal_cache.o \
 usb/class/cdc/device/cdcdf_acm.o \
 hal/utils/src/utils_syscalls.o \
 sd_mmc/sd_mmc.o \
+usb_start.o \
 hal/src/hal_timer.o \
 hal/src/hal_mci_sync.o \
 hpl/usb/hpl_usb.o \
@@ -78,7 +80,7 @@ hpl/core/hpl_init.o \
 hpl/ramecc/hpl_ramecc.o \
 hal/utils/src/utils_list.o \
 hal/utils/src/utils_assert.o \
-usb_start.o \
+hpl/oscctrl/hpl_oscctrl.o \
 hpl/sdhc/hpl_sdhc.o \
 hpl/mclk/hpl_mclk.o \
 hpl/sercom/hpl_sercom.o \
@@ -90,7 +92,6 @@ main.o \
 hpl/osc32kctrl/hpl_osc32kctrl.o \
 hpl/rtc/hpl_rtc.o \
 examples/driver_examples.o \
-hpl/oscctrl/hpl_oscctrl.o \
 driver_init.o \
 hal/src/hal_ext_irq.o \
 hal/src/hal_atomic.o \
@@ -102,6 +103,7 @@ hpl/dmac/hpl_dmac.o \
 samd51a/gcc/gcc/startup_samd51.o \
 atmel_start.o \
 usb/device/usbdc.o \
+hpl/tc/hpl_tc.o \
 hpl/cmcc/hpl_cmcc.o \
 fatFS/diskio.o \
 fatFS/ff.o \
@@ -120,6 +122,7 @@ OBJS_AS_ARGS +=  \
 "usb/class/cdc/device/cdcdf_acm.o" \
 "hal/utils/src/utils_syscalls.o" \
 "sd_mmc/sd_mmc.o" \
+"usb_start.o" \
 "hal/src/hal_timer.o" \
 "hal/src/hal_mci_sync.o" \
 "hpl/usb/hpl_usb.o" \
@@ -129,7 +132,7 @@ OBJS_AS_ARGS +=  \
 "hpl/ramecc/hpl_ramecc.o" \
 "hal/utils/src/utils_list.o" \
 "hal/utils/src/utils_assert.o" \
-"usb_start.o" \
+"hpl/oscctrl/hpl_oscctrl.o" \
 "hpl/sdhc/hpl_sdhc.o" \
 "hpl/mclk/hpl_mclk.o" \
 "hpl/sercom/hpl_sercom.o" \
@@ -141,7 +144,6 @@ OBJS_AS_ARGS +=  \
 "hpl/osc32kctrl/hpl_osc32kctrl.o" \
 "hpl/rtc/hpl_rtc.o" \
 "examples/driver_examples.o" \
-"hpl/oscctrl/hpl_oscctrl.o" \
 "driver_init.o" \
 "hal/src/hal_ext_irq.o" \
 "hal/src/hal_atomic.o" \
@@ -153,6 +155,7 @@ OBJS_AS_ARGS +=  \
 "samd51a/gcc/gcc/startup_samd51.o" \
 "atmel_start.o" \
 "usb/device/usbdc.o" \
+"hpl/tc/hpl_tc.o" \
 "hpl/cmcc/hpl_cmcc.o" \
 "fatFS/diskio.o" \
 "fatFS/ff.o" \
@@ -181,6 +184,7 @@ DIR_INCLUDES +=  \
 -I"../hpl/rtc" \
 -I"../hpl/sdhc" \
 -I"../hpl/sercom" \
+-I"../hpl/tc" \
 -I"../hpl/usb" \
 -I"../hri" \
 -I"../" \
@@ -217,7 +221,7 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_timer.d" \
 "hal/utils/src/utils_list.d" \
 "hpl/sdhc/hpl_sdhc.d" \
-"usb_start.d" \
+"hpl/dmac/hpl_dmac.d" \
 "hal/utils/src/utils_assert.d" \
 "hpl/cmcc/hpl_cmcc.d" \
 "hal/src/hal_delay.d" \
@@ -226,7 +230,7 @@ DEPS_AS_ARGS +=  \
 "usb/usb_protocol.d" \
 "hpl/gclk/hpl_gclk.d" \
 "hal/src/hal_usb_device.d" \
-"hpl/dmac/hpl_dmac.d" \
+"usb_start.d" \
 "hal/src/hal_init.d" \
 "hpl/mclk/hpl_mclk.d" \
 "driver_init.d" \
@@ -242,6 +246,7 @@ DEPS_AS_ARGS +=  \
 "hpl/evsys/hpl_evsys.d" \
 "atmel_start.d" \
 "hal/src/hal_atomic.d" \
+"hpl/tc/hpl_tc.d" \
 "usb/device/usbdc.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
 "samd51a/gcc/gcc/startup_samd51.d" \
