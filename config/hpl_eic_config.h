@@ -357,7 +357,7 @@
 // <e> Interrupt 6 Settings
 // <id> eic_arch_enable_irq_setting6
 #ifndef CONF_EIC_ENABLE_IRQ_SETTING6
-#define CONF_EIC_ENABLE_IRQ_SETTING6 0
+#define CONF_EIC_ENABLE_IRQ_SETTING6 1
 #endif
 
 // <q> External Interrupt 6 Filter Enable
@@ -391,14 +391,14 @@
 // <i> This defines input sense trigger
 // <id> eic_arch_sense6
 #ifndef CONF_EIC_SENSE6
-#define CONF_EIC_SENSE6 EIC_NMICTRL_NMISENSE_NONE_Val
+#define CONF_EIC_SENSE6 EIC_NMICTRL_NMISENSE_FALL_Val
 #endif
 
 // <q> External Interrupt 6 Asynchronous Edge Detection Mode
 // <i> Indicates the external interrupt 6 detection mode operated synchronously or asynchronousl
 // <id> eic_arch_asynch6
 #ifndef CONF_EIC_ASYNCH6
-#define CONF_EIC_ASYNCH6 0
+#define CONF_EIC_ASYNCH6 1
 #endif
 
 // </e>
@@ -905,6 +905,8 @@
 #endif
 
 // </h>
+
+#define CONFIG_EIC_EXTINT_MAP {6, PIN_PB22},
 
 // <<< end of configuration section >>>
 
