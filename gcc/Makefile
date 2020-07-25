@@ -108,7 +108,8 @@ hpl/cmcc/hpl_cmcc.o \
 fatFS/diskio.o \
 fatFS/ff.o \
 fatFS/ffsystem.o \
-fatFS/ffunicode.o
+fatFS/ffunicode.o \
+block_transfer.o
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -160,7 +161,8 @@ OBJS_AS_ARGS +=  \
 "fatFS/diskio.o" \
 "fatFS/ff.o" \
 "fatFS/ffsystem.o" \
-"fatFS/ffunicode.o"
+"fatFS/ffunicode.o" \
+"block_transfer.o"
 
 # List the directories containing header files
 DIR_INCLUDES +=  \
@@ -254,7 +256,8 @@ DEPS_AS_ARGS +=  \
 "fatFS/diskio.d" \
 "fatFS/ff.d" \
 "fatFS/ffsystem.d" \
-"fatFS/ffunicode.d"
+"fatFS/ffunicode.d" \
+"block_transfer.d"
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
