@@ -595,6 +595,53 @@ void system_init(void)
 
 	gpio_set_pin_function(WRITE_PROTECT_0, GPIO_PIN_FUNCTION_OFF);
 
+	gpio_set_pin_direction(MANEN0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(WRENAB0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(WTA10, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(WTA00, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(RTA10, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(RTA00, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTMSPT0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTREWC0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTINIT0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTSEL0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTSR0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTFR0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTSF0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(TTFF0, GPIO_DIRECTION_IN);
+	gpio_set_pin_direction(WRDATA, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_direction(TTBOTA0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(TTEOTA0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(TTRDY0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(RDDATA0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_direction(DATDET0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_pull_mode(DATDET0, GPIO_PULL_UP);
+
+	gpio_set_pin_direction(TIMA0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(RWDINGA0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(LPEW0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(CARTWE0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(TOR0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_pull_mode(MANEN0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(WRENAB0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(WTA10, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(WTA00, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(RTA10, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(RTA00, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTMSPT0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTREWC0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTINIT0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTSEL0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTFR0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTSR0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTFF0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(TTSF0, GPIO_PULL_UP);
+	gpio_set_pin_pull_mode(WRDATA, GPIO_PULL_UP);
+
 	EXTERNAL_IRQ_0_init();
 
 	EVENT_SYSTEM_0_init();

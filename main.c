@@ -86,6 +86,10 @@ static inline void set_pin_active_low(const uint8_t pin, const bool level) {
     gpio_set_pin_level(pin, !level);
 }
 
+struct tape_state {
+
+};
+
 void update_state() {
     int normal_speed = SLOW_SPEED;
     int fast_speed = FAST_SPEED;
@@ -279,7 +283,7 @@ void update_state() {
         if(!dma_running()) {
             if(intrablock_position > IBG_BYTES) {
 
-                send_block(read_track, current_block);
+                // send_block(read_track, current_block);
 
             }
         }
