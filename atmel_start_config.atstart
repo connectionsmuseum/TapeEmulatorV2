@@ -7,7 +7,7 @@ versions:
   content: unknown
   content_pack_name: unknown
   format: '2'
-  frontend: 1.7.360
+  frontend: 1.7.391
   packs_version_avr8: 1.0.1421
   packs_version_qtouch: unknown
   packs_version_sam: 1.0.1658
@@ -1175,7 +1175,7 @@ drivers:
           external: false
           external_frequency: 0
         - name: Channel 6
-          input: Generic clock generator 0
+          input: Generic clock generator 1
           external: false
           external_frequency: 0
         - name: Channel 7
@@ -1207,7 +1207,7 @@ drivers:
           evsys_clk_selection_3: Generic clock generator 0
           evsys_clk_selection_4: Generic clock generator 0
           evsys_clk_selection_5: Generic clock generator 0
-          evsys_clk_selection_6: Generic clock generator 0
+          evsys_clk_selection_6: Generic clock generator 1
           evsys_clk_selection_7: Generic clock generator 0
           evsys_clk_selection_8: Generic clock generator 0
           evsys_clk_selection_9: Generic clock generator 0
@@ -1225,7 +1225,7 @@ drivers:
       enable_gclk_gen_11: false
       enable_gclk_gen_11__externalclock: 1000000
       enable_gclk_gen_1__externalclock: 1000000
-      enable_gclk_gen_2: false
+      enable_gclk_gen_2: true
       enable_gclk_gen_2__externalclock: 1000000
       enable_gclk_gen_3: true
       enable_gclk_gen_3__externalclock: 1000000
@@ -1261,7 +1261,7 @@ drivers:
       gclk_arch_gen_1_oe: true
       gclk_arch_gen_1_oov: false
       gclk_arch_gen_1_runstdby: false
-      gclk_arch_gen_2_enable: false
+      gclk_arch_gen_2_enable: true
       gclk_arch_gen_2_idc: false
       gclk_arch_gen_2_oe: false
       gclk_arch_gen_2_oov: false
@@ -1313,9 +1313,9 @@ drivers:
       gclk_gen_1_div: 1
       gclk_gen_1_div_sel: false
       gclk_gen_1_oscillator: Digital Frequency Locked Loop (DFLL48M)
-      gclk_gen_2_div: 1
+      gclk_gen_2_div: 24
       gclk_gen_2_div_sel: false
-      gclk_gen_2_oscillator: 32kHz Ultra Low Power Internal Oscillator (OSCULP32K)
+      gclk_gen_2_oscillator: Digital Frequency Locked Loop (DFLL48M)
       gclk_gen_3_div: 1
       gclk_gen_3_div_sel: false
       gclk_gen_3_oscillator: 32kHz Ultra Low Power Internal Oscillator (OSCULP32K)
@@ -1590,7 +1590,7 @@ drivers:
       spi_master_arch_dord: MSB first
       spi_master_arch_ibon: In data stream
       spi_master_arch_runstdby: false
-      spi_master_baud_rate: 50000
+      spi_master_baud_rate: 48000
       spi_master_character_size: 8 bits
       spi_master_dma_rx_channel: 1
       spi_master_dma_tx_channel: 0
@@ -1614,7 +1614,7 @@ drivers:
       domain_group:
         nodes:
         - name: Core
-          input: Generic clock generator 1
+          input: Generic clock generator 2
           external: false
           external_frequency: 0
         - name: Slow
@@ -1622,7 +1622,7 @@ drivers:
           external: false
           external_frequency: 0
         configuration:
-          core_gclk_selection: Generic clock generator 1
+          core_gclk_selection: Generic clock generator 2
           slow_gclk_selection: Generic clock generator 3
   MCI_0:
     user_label: MCI_0

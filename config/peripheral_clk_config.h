@@ -319,7 +319,7 @@
 
 // <i> Select the clock source for channel 6.
 #ifndef CONF_GCLK_EVSYS_CHANNEL_6_SRC
-#define CONF_GCLK_EVSYS_CHANNEL_6_SRC GCLK_PCHCTRL_GEN_GCLK0_Val
+#define CONF_GCLK_EVSYS_CHANNEL_6_SRC GCLK_PCHCTRL_GEN_GCLK1_Val
 #endif
 
 /**
@@ -328,7 +328,7 @@
  */
 
 #ifndef CONF_GCLK_EVSYS_CHANNEL_6_FREQUENCY
-#define CONF_GCLK_EVSYS_CHANNEL_6_FREQUENCY 120000000.0
+#define CONF_GCLK_EVSYS_CHANNEL_6_FREQUENCY 48000000.0
 #endif
 
 // <y> EVSYS Channel 7 Clock Source
@@ -589,7 +589,7 @@
 
 // <i> Select the clock source for CORE.
 #ifndef CONF_GCLK_SERCOM1_CORE_SRC
-#define CONF_GCLK_SERCOM1_CORE_SRC GCLK_PCHCTRL_GEN_GCLK1_Val
+#define CONF_GCLK_SERCOM1_CORE_SRC GCLK_PCHCTRL_GEN_GCLK2_Val
 #endif
 
 // <y> Slow Clock Source
@@ -629,7 +629,7 @@
  * \brief SERCOM1's Core Clock frequency
  */
 #ifndef CONF_GCLK_SERCOM1_CORE_FREQUENCY
-#define CONF_GCLK_SERCOM1_CORE_FREQUENCY 48000000
+#define CONF_GCLK_SERCOM1_CORE_FREQUENCY 2000000
 #endif
 
 /**
