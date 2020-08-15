@@ -59,7 +59,7 @@
 // <i> The SPI data transfer rate
 // <id> spi_master_baud_rate
 #ifndef CONF_SERCOM_1_SPI_BAUD
-#define CONF_SERCOM_1_SPI_BAUD 50000
+#define CONF_SERCOM_1_SPI_BAUD 48000
 #endif
 
 // </h>
