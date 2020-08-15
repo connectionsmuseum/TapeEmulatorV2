@@ -69,8 +69,8 @@ volatile int debug_tick_flag = 0;
 
 
 // Set these to zero for normal operation.
-#define DEBUG_CONSTANT_FORWARD 0
-#define DEBUG_ALWAYS_TRACK_ONE 0
+#define DEBUG_CONSTANT_FORWARD 1
+#define DEBUG_ALWAYS_TRACK_ONE 1
 #define DEBUG_NEVER_CARTWE0    1
 
 static struct timer_task TIMER_1_task1;
@@ -85,10 +85,6 @@ static inline bool get_pin_active_low(const uint8_t pin) {
 static inline void set_pin_active_low(const uint8_t pin, const bool level) {
     gpio_set_pin_level(pin, !level);
 }
-
-struct tape_state {
-
-};
 
 void update_state() {
     int normal_speed = SLOW_SPEED;
@@ -283,7 +279,7 @@ void update_state() {
         if(!dma_running()) {
             if(intrablock_position > IBG_BYTES) {
 
-                // send_block(read_track, current_block);
+                send_block(read_track, current_block);
 
             }
         }
@@ -353,6 +349,13 @@ int main(void)
     char usb_printbuf[200];
     FRESULT result;
 
+    //
+    //
+    // debugging_main();
+    //
+    //
+    //
+
     /* Initializes MCU, drivers and middleware */
     atmel_start_init();
 
@@ -407,7 +410,7 @@ int main(void)
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
 
-                snprintf(usb_printbuf, 99, "State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
+                snprintf(usb_printbuf, 99, "02 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
                          tape_state, read_track, (int) dma_running(), tape_position, block, data_detect);
                 cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
 
@@ -431,12 +434,38 @@ int main(void)
 }
 
 
+struct pin_name_pair {
+    char name[20];
+    uint8_t pin;
+};
+
+struct pin_name_pair input_pins[] = {
+
+    {"WTA10", WTA10},
+    {"WTA00", WTA00},
+    {"RTA10", RTA10},
+    {"RTA00", RTA00},
+    {"WRENAB0", WRENAB0},
+    {"888 WRDATA", WRDATA},
+    {"777 TTMSPT0", TTMSPT0},
+    {"yyyTTFF0", TTFF0},
+    {"TTSF0", TTSF0},
+    {"TTFR0", TTFR0},
+    {"TTSR0", TTSR0},
+    {"TTSEL0", TTSEL0},
+    {"TTINIT0", TTINIT0},
+    {"TTREWC0", TTREWC0},
+    {"MANEN0", MANEN0},
+
+};
+
 //
 // Debugging only
 //
 int debugging_main(void)
 {
     char usb_printbuf[200];
+    int buf_pos;
     uint32_t sd_cap;
     FRESULT fatfs_result;
     FILINFO file_info;
@@ -445,40 +474,39 @@ int debugging_main(void)
     /* Initializes MCU, drivers and middleware */
     atmel_start_init();
 
-        if (cdcdf_acm_is_enabled()) {
-            snprintf(usb_printbuf, 99, "*** Initializing *** \n\r");
-            cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
-        }
-
-    fatfs_result = f_mount(&FatFs, "", 0);
+    int start_pin = 0;
+    int end_pin = 6;
 
     while (1) {
+
         if (cdcdf_acm_is_enabled()) {
-            snprintf(usb_printbuf, 99, "Loop \n\r");
-            cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
+            usb_printbuf[0] = 0;
+            for(int i = start_pin; i < end_pin; i++) {
+                if(gpio_get_pin_level(input_pins[i].pin)) {
+                    snprintf(usb_printbuf + strlen(usb_printbuf),
+                            200 - strlen(usb_printbuf), "%s: HIGH ", input_pins[i].name);
+                } else {
+                    snprintf(usb_printbuf + strlen(usb_printbuf),
+                            200 - strlen(usb_printbuf),  "%s: low  ", input_pins[i].name);
+                }
 
+                /*
+                if(strlen(usb_printbuf) > 100) {
+                    snprintf(usb_printbuf + strlen(usb_printbuf) - 2,
+                            200 - strlen(usb_printbuf),  "xxxxx\n\r");
+                    cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
+                    usb_printbuf[0] = 0;
+                }
+                */
+            }
+            if(strlen(usb_printbuf) > 0) {
+                snprintf(usb_printbuf + strlen(usb_printbuf) - 2,
+                        200 - strlen(usb_printbuf),  "\n\r");
+                cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
+            }
         }
 
-        if (SD_MMC_OK == sd_mmc_check(0)) {
-            gpio_set_pin_level(PB04GREEN, true);
-            fatfs_result = f_opendir(&dir_obj, "1");
-            fatfs_result = f_readdir(&dir_obj, &file_info);
 
-            snprintf(usb_printbuf, 99, "filename %s \n\r", file_info.fname);
-            cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
-            // single_block_read();
-
-        }
-
-        gpio_set_pin_level(PB05RED, true);
-        gpio_set_pin_level(TTBOTA0, true);
-
-        delay_ms(300);
-
-        gpio_set_pin_level(PB05RED, false);
-        gpio_set_pin_level(TTBOTA0, false);
-        gpio_set_pin_level(PB04GREEN, false);
-        // gpio_set_pin_level(PB04GREEN, false);
-        delay_ms(300);
+        delay_ms(30);
     }
 }
