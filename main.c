@@ -21,6 +21,7 @@ FATFS FatFs;
 bool d12_state = false;
 bool d13_state = false;
 bool pb04_state = false;
+bool pb05_state = false;
 int tape_state = STATE_IDLE;
 int tape_position = 0;
 int read_track = 0;
@@ -69,8 +70,8 @@ volatile int debug_tick_flag = 0;
 
 
 // Set these to zero for normal operation.
-#define DEBUG_CONSTANT_FORWARD 1
-#define DEBUG_ALWAYS_TRACK_ONE 1
+#define DEBUG_CONSTANT_FORWARD 0
+#define DEBUG_ALWAYS_TRACK_ONE 0
 #define DEBUG_NEVER_CARTWE0    1
 
 static struct timer_task TIMER_1_task1;
@@ -96,7 +97,8 @@ void update_state() {
     char usb_printbuf[200];
 
     // Use this to time the update duration.
-    // gpio_set_pin_level(D12, true);
+    // gpio_set_pin_level(PB05RED, true);
+    flash_pin(PB05RED, &pb05_state);
 
     if(init_flag) {
         // Not sure if we're supposed to display rewinding during init?
@@ -410,7 +412,7 @@ int main(void)
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
 
-                snprintf(usb_printbuf, 99, "02 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
+                snprintf(usb_printbuf, 99, "04 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
                          tape_state, read_track, (int) dma_running(), tape_position, block, data_detect);
                 cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
 

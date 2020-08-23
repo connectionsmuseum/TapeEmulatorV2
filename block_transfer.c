@@ -219,16 +219,16 @@ bool dma_running() {
 
 static void tx_complete_cb_bufferA(struct _dma_resource *resource) {
     // 95 was right after clocking ended
-    // delay_us(300);
-    // gpio_set_pin_level(DATDET0, true);
+    delay_us(300);
+    gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferA);
 }
 
 static void tx_complete_cb_bufferB(struct _dma_resource *resource) {
     // 95 was right after clocking ended
-    // delay_us(300);
-    // gpio_set_pin_level(DATDET0, true);
+    delay_us(300);
+    gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferB);
 }
