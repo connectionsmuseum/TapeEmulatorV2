@@ -160,14 +160,15 @@ int _load_block_into_buffer(int track, int block_id, struct transfer_buffer *buf
 void send_block(int track, int block_id) {
     struct io_descriptor *io;
     struct transfer_buffer *buffer_to_send;
+    bool use_bufferA = false;
 
     if((block_id == bufferA.block_id) && (track == bufferA.track)) {
         buffer_to_send = &bufferA;
-        spi_m_dma_register_callback(_SPI, SPI_M_DMA_CB_TX_DONE, tx_complete_cb_bufferA);
+        use_bufferA = true;
     } else if ((block_id == bufferB.block_id) &&
                (track == bufferB.track)) {
         buffer_to_send = &bufferB;
-        spi_m_dma_register_callback(_SPI, SPI_M_DMA_CB_TX_DONE, tx_complete_cb_bufferB);
+        use_bufferA = false;
     } else {
         return;
     }
@@ -176,6 +177,12 @@ void send_block(int track, int block_id) {
     // set DMA running, or we won't be able to clear it.
     if(buffer_to_send->length == 0) {
         return;
+    }
+
+    if(use_bufferA) {
+        spi_m_dma_register_callback(_SPI, SPI_M_DMA_CB_TX_DONE, tx_complete_cb_bufferA);
+    } else {
+        spi_m_dma_register_callback(_SPI, SPI_M_DMA_CB_TX_DONE, tx_complete_cb_bufferB);
     }
 
     buffer_to_send->locked = true;
@@ -187,14 +194,16 @@ void send_block(int track, int block_id) {
     //spi_m_dma_deinit(_SPI);
     //
 
-    // Active low
-    // The CTTC is sensitive to this timing, have to set this before the io_write.
     CRITICAL_SECTION_ENTER();
-    gpio_set_pin_level(DATDET0, false);
 
     // spi_m_dma_init(_SPI, SERCOM1);
     io_write(io, buffer_to_send->block, buffer_to_send->length);
-    spi_m_dma_enable(_SPI); 
+    spi_m_dma_enable(_SPI);
+
+    // Adjusted this to put the DATDET0 transition at ~7 bits into the preamble.
+    delay_us(150);
+    gpio_set_pin_level(DATDET0, false);
+
     CRITICAL_SECTION_LEAVE();
 
 
@@ -218,16 +227,24 @@ bool dma_running() {
 }
 
 static void tx_complete_cb_bufferA(struct _dma_resource *resource) {
-    // 95 was right after clocking ended
-    delay_us(300);
+    // V1 used a delay of 300us
+    delay_us(200);
+
+    // Must include the delay before disabling DMA,
+    // otherwise the last few bits will get chopped off.
+    spi_m_dma_disable(_SPI);
+
     gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferA);
 }
 
 static void tx_complete_cb_bufferB(struct _dma_resource *resource) {
-    // 95 was right after clocking ended
-    delay_us(300);
+
+    delay_us(200);
+
+    spi_m_dma_disable(_SPI);
+
     gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferB);
