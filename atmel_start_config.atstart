@@ -1313,7 +1313,7 @@ drivers:
       gclk_gen_1_div: 1
       gclk_gen_1_div_sel: false
       gclk_gen_1_oscillator: Digital Frequency Locked Loop (DFLL48M)
-      gclk_gen_2_div: 24
+      gclk_gen_2_div: 25
       gclk_gen_2_div_sel: false
       gclk_gen_2_oscillator: Digital Frequency Locked Loop (DFLL48M)
       gclk_gen_3_div: 1
@@ -1585,9 +1585,9 @@ drivers:
     configuration:
       spi_master_advanced: true
       spi_master_arch_cpha: Sample input on leading edge
-      spi_master_arch_cpol: SCK is low when idle
+      spi_master_arch_cpol: SCK is high when idle
       spi_master_arch_dbgstop: Keep running
-      spi_master_arch_dord: MSB first
+      spi_master_arch_dord: LSB first
       spi_master_arch_ibon: In data stream
       spi_master_arch_runstdby: false
       spi_master_baud_rate: 48000

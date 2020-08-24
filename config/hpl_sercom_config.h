@@ -83,7 +83,7 @@
 // <i> I least significant or most significant bit is shifted out first (DORD)
 // <id> spi_master_arch_dord
 #ifndef CONF_SERCOM_1_SPI_DORD
-#define CONF_SERCOM_1_SPI_DORD 0x0
+#define CONF_SERCOM_1_SPI_DORD 0x1
 #endif
 
 // <o> Clock Polarity
@@ -92,7 +92,7 @@
 // <i> Determines if the leading edge is rising or falling with a corresponding opposite edge at the trailing edge. (CPOL)
 // <id> spi_master_arch_cpol
 #ifndef CONF_SERCOM_1_SPI_CPOL
-#define CONF_SERCOM_1_SPI_CPOL 0x0
+#define CONF_SERCOM_1_SPI_CPOL 0x1
 #endif
 
 // <o> Clock Phase
