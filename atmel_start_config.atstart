@@ -2,16 +2,16 @@ format_version: '2'
 name: TapeEmulatorV2
 versions:
   api: '1.0'
-  backend: 1.7.391
-  commit: d4b7e9f65a05ebffcb0986e4060cb8c0a313e69a
+  backend: 1.7.430
+  commit: f09e2a2493613fab9dafdd76d38e1ed2f0a13a39
   content: unknown
   content_pack_name: unknown
   format: '2'
-  frontend: 1.7.391
-  packs_version_avr8: 1.0.1421
+  frontend: 1.7.430
+  packs_version_avr8: 1.0.1429
   packs_version_qtouch: unknown
   packs_version_sam: 1.0.1658
-  version_backend: 1.7.391
+  version_backend: 1.7.430
   version_frontend: ''
 board:
   identifier: CustomBoard
@@ -1605,7 +1605,7 @@ drivers:
         pad: PA16
         label: MOSI
       - name: SERCOM1/PAD/1
-        pad: PA17
+        pad: PA01
         label: SCK
       - name: SERCOM1/PAD/2
         pad: PA18
@@ -1698,6 +1698,75 @@ drivers:
           external_frequency: 0
         configuration:
           tc_gclk_selection: Generic clock generator 1
+  TIMER_2:
+    user_label: TIMER_2
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::TC2::driver_config_definition::8-bit.Counter.Mode::Lite:TC:Timer
+    functionality: Timer
+    api: Lite:TC:Timer
+    configuration:
+      cc_cc0: 2
+      cc_cc1: 0
+      cc_control: true
+      count_control: false
+      count_count: 0
+      ctrla_alock: false
+      ctrla_capten0: false
+      ctrla_capten1: false
+      ctrla_captmode0: DEFAULT
+      ctrla_captmode1: DEFAULT
+      ctrla_control: true
+      ctrla_copen0: false
+      ctrla_copen1: false
+      ctrla_enable: true
+      ctrla_mode: 1
+      ctrla_ondemand: false
+      ctrla_prescaler: DIV1
+      ctrla_prescsync: GCLK
+      ctrla_runstdby: false
+      ctrlbset_cmd: NONE
+      ctrlbset_control: false
+      ctrlbset_dir: false
+      ctrlbset_lupd: false
+      ctrlbset_oneshot: false
+      ctrlc_inven0: false
+      ctrlc_inven1: true
+      dbgctrl_control: false
+      dbgctrl_dbgrun: false
+      drvctrl_control: true
+      evctrl_control: false
+      evctrl_evact: 'OFF'
+      evctrl_mceo0: false
+      evctrl_mceo1: false
+      evctrl_ovfeo: false
+      evctrl_tcei: false
+      evctrl_tcinv: false
+      intenset_control: false
+      intenset_err: false
+      intenset_mc0: false
+      intenset_mc1: false
+      intenset_ovf: false
+      per_control: true
+      per_per: 40
+      wave_control: true
+      wave_wavegen: NPWM
+    optional_signals:
+    - identifier: TIMER_2:WO/1
+      pad: PA17
+      mode: PWM output
+      configuration: null
+      definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::optional_signal_definition::TC2.WO.1
+      name: TC2/WO/1
+      label: WO/1
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC
+          input: Generic clock generator 2
+          external: false
+          external_frequency: 0
+        configuration:
+          tc_gclk_selection: Generic clock generator 2
   USB_0:
     user_label: USB_0
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::USB::driver_config_definition::USB.Device::HAL:Driver:USB.Device
@@ -1742,6 +1811,12 @@ drivers:
         configuration:
           usb_gclk_selection: Generic clock generator 1
 pads:
+  PA01:
+    name: PA01
+    definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PA01
+    mode: Digital output
+    user_label: PA01
+    configuration: null
   PB04GREEN:
     name: PB04
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PB04
@@ -1821,7 +1896,7 @@ pads:
   PA17:
     name: PA17
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J20A-AF::pad::PA17
-    mode: Digital output
+    mode: Peripheral IO
     user_label: PA17
     configuration: null
   PA18:

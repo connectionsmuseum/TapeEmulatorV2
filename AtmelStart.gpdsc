@@ -109,6 +109,7 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/utils/src/utils_event.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/utils/src/utils_list.c"/>
         <file category="source" condition="GCC" name="hal/utils/src/utils_syscalls.c"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="hpl/doc_lite/tc.rst"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_ac_d51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_adc_d51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_aes_d51.h"/>
@@ -212,6 +213,8 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/sercom/hpl_sercom.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/tc/hpl_tc.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hpl/tc/hpl_tc_base.h"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hpl/tc/tc_lite.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hpl/tc/tc_lite.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/usb/hpl_usb.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="usb_start.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="usb_start.h"/>

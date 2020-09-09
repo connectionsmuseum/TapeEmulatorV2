@@ -93,6 +93,7 @@ hpl/osc32kctrl/hpl_osc32kctrl.o \
 hpl/rtc/hpl_rtc.o \
 examples/driver_examples.o \
 driver_init.o \
+hpl/tc/tc_lite.o \
 hal/src/hal_ext_irq.o \
 hal/src/hal_atomic.o \
 hal/src/hal_gpio.o \
@@ -146,6 +147,7 @@ OBJS_AS_ARGS +=  \
 "hpl/rtc/hpl_rtc.o" \
 "examples/driver_examples.o" \
 "driver_init.o" \
+"hpl/tc/tc_lite.o" \
 "hal/src/hal_ext_irq.o" \
 "hal/src/hal_atomic.o" \
 "hal/src/hal_gpio.o" \
@@ -236,6 +238,7 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_init.d" \
 "hpl/mclk/hpl_mclk.d" \
 "driver_init.d" \
+"hpl/tc/tc_lite.d" \
 "hpl/osc32kctrl/hpl_osc32kctrl.d" \
 "main.d" \
 "examples/driver_examples.d" \

@@ -75,7 +75,7 @@ void SPI_0_PORT_init(void)
 
 	gpio_set_pin_function(PA16, PINMUX_PA16C_SERCOM1_PAD0);
 
-	gpio_set_pin_level(PA17,
+	gpio_set_pin_level(PA01,
 	                   // <y> Initial level
 	                   // <id> pad_initial_level
 	                   // <false"> Low
@@ -83,9 +83,9 @@ void SPI_0_PORT_init(void)
 	                   false);
 
 	// Set pin direction to output
-	gpio_set_pin_direction(PA17, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(PA01, GPIO_DIRECTION_OUT);
 
-	gpio_set_pin_function(PA17, PINMUX_PA17C_SERCOM1_PAD1);
+	gpio_set_pin_function(PA01, PINMUX_PA01D_SERCOM1_PAD1);
 
 	// Set pin direction to input
 	gpio_set_pin_direction(PA18, GPIO_DIRECTION_IN);
@@ -417,6 +417,12 @@ static void TIMER_1_init(void)
 	timer_init(&TIMER_1, TC0, _tc_get_timer());
 }
 
+void TIMER_2_CLOCK_init(void)
+{
+	hri_mclk_set_APBBMASK_TC2_bit(MCLK);
+	hri_gclk_write_PCHCTRL_reg(GCLK, TC2_GCLK_ID, CONF_GCLK_TC2_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+}
+
 void USB_0_PORT_init(void)
 {
 
@@ -653,5 +659,9 @@ void system_init(void)
 	MCI_0_init();
 
 	TIMER_1_init();
+	TIMER_2_CLOCK_init();
+
+	TIMER_2_init();
+
 	USB_0_init();
 }

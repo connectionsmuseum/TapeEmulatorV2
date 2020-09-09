@@ -140,6 +140,8 @@ static struct _timer_hpl_interface _tc_timer_functions = {
 
 static struct _timer_device *_tc0_dev = NULL;
 
+static struct _pwm_device *_tc2_dev = NULL;
+
 static int8_t         get_tc_index(const void *const hw);
 static void           _tc_init_irq_param(const void *const hw, void *dev);
 static inline uint8_t _get_hardware_offset(const void *const hw);
@@ -337,6 +339,9 @@ static void _tc_init_irq_param(const void *const hw, void *dev)
 {
 	if (hw == TC0) {
 		_tc0_dev = (struct _timer_device *)dev;
+	}
+	if (hw == TC2) {
+		_tc2_dev = (struct _pwm_device *)dev;
 	}
 }
 

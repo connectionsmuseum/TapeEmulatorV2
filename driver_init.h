@@ -32,6 +32,7 @@ extern "C" {
 #include <hal_mci_sync.h>
 #include <hal_timer.h>
 #include <hpl_tc_base.h>
+#include <tc_lite.h>
 
 #include "hal_usb_device.h"
 
@@ -49,6 +50,10 @@ void SPI_0_init(void);
 void MCI_0_PORT_init(void);
 void MCI_0_CLOCK_init(void);
 void MCI_0_init(void);
+
+void TIMER_2_CLOCK_init(void);
+
+int8_t TIMER_2_init(void);
 
 void USB_0_CLOCK_init(void);
 void USB_0_init(void);
