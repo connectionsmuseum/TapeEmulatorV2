@@ -1847,6 +1847,7 @@ static inline void hri_tccount8_toggle_COUNT_reg(const void *const hw, hri_tccou
 
 static inline hri_tccount8_count_reg_t hri_tccount8_read_COUNT_reg(const void *const hw)
 {
+        hri_tc_write_CTRLB_CMD_bf(hw, TC_CTRLBSET_CMD_READSYNC_Val);
 	hri_tc_wait_for_sync(hw, TC_SYNCBUSY_COUNT);
 	return ((Tc *)hw)->COUNT8.COUNT.reg;
 }

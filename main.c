@@ -71,7 +71,7 @@ volatile int debug_tick_flag = 0;
 
 // Set these to zero for normal operation.
 #define DEBUG_CONSTANT_FORWARD 0
-#define DEBUG_ALWAYS_TRACK_ONE 0
+#define DEBUG_ALWAYS_TRACK_ZERO 0
 #define DEBUG_NEVER_CARTWE0    1
 
 static struct timer_task TIMER_1_task1;
@@ -259,8 +259,8 @@ void update_state() {
                        get_pin_active_low(WTA00)*1);
     }
 
-#if DEBUG_ALWAYS_TRACK_ONE == 1
-     read_track = 1;
+#if DEBUG_ALWAYS_TRACK_ZERO == 1
+     read_track = 0;
 #endif
 
 #if DEBUG_NEVER_CARTWE0 == 1

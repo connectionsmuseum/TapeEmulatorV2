@@ -30,6 +30,10 @@ static void tx_complete_cb_bufferB(struct _dma_resource *resource);
 
 static bool _dma_running;
 
+volatile int DATDET_delay = 90;
+volatile int SPI_disable_delay = 340; // 400 was working ok. Split this into before and after end of clocking delay.
+
+
 void init_block_buffer(struct spi_m_dma_descriptor *SPI) {
     _SPI  = SPI;
     _initialize_buffer(&bufferA);
@@ -200,8 +204,9 @@ void send_block(int track, int block_id) {
     io_write(io, buffer_to_send->block, buffer_to_send->length);
     spi_m_dma_enable(_SPI);
 
+    TIMER_2_enable();
     // Adjusted this to put the DATDET0 transition at ~7 bits into the preamble.
-    delay_us(150);
+    delay_us(190);
     gpio_set_pin_level(DATDET0, false);
 
     CRITICAL_SECTION_LEAVE();
@@ -228,12 +233,17 @@ bool dma_running() {
 
 static void tx_complete_cb_bufferA(struct _dma_resource *resource) {
     // V1 used a delay of 300us
-    delay_us(200);
+    delay_us(SPI_disable_delay);
+
+    TIMER_2_disable();
+    delay_us(60);
 
     // Must include the delay before disabling DMA,
     // otherwise the last few bits will get chopped off.
     spi_m_dma_disable(_SPI);
 
+
+    delay_us(DATDET_delay);
     gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferA);
@@ -241,10 +251,15 @@ static void tx_complete_cb_bufferA(struct _dma_resource *resource) {
 
 static void tx_complete_cb_bufferB(struct _dma_resource *resource) {
 
-    delay_us(200);
+    delay_us(SPI_disable_delay);
+
+    TIMER_2_disable();
+    delay_us(60);
 
     spi_m_dma_disable(_SPI);
 
+
+    delay_us(DATDET_delay);
     gpio_set_pin_level(DATDET0, true);
     _dma_running = false;
     _initialize_buffer(&bufferB);

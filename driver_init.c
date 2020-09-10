@@ -421,6 +421,11 @@ void TIMER_2_CLOCK_init(void)
 {
 	hri_mclk_set_APBBMASK_TC2_bit(MCLK);
 	hri_gclk_write_PCHCTRL_reg(GCLK, TC2_GCLK_ID, CONF_GCLK_TC2_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+
+        gpio_set_pin_function(RDCLK0, PINMUX_PA17E_TC2_WO1);
+	// gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_pull_mode(RDCLK0, GPIO_PULL_UP);
+
 }
 
 void USB_0_PORT_init(void)
@@ -620,7 +625,7 @@ void system_init(void)
 	gpio_set_pin_direction(TTBOTA0, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(TTEOTA0, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(TTRDY0, GPIO_DIRECTION_OUT);
-	gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
+	// gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(RDDATA0, GPIO_DIRECTION_OUT);
 
 	gpio_set_pin_direction(DATDET0, GPIO_DIRECTION_OUT);

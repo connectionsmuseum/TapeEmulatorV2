@@ -33,6 +33,7 @@
  */
 
 #include "tc_lite.h"
+#include "atmel_start_pins.h"
 
 /**
  * \brief Initialize TC interface
@@ -77,13 +78,11 @@ int8_t TIMER_2_init()
 
 	// hri_tc_write_DBGCTRL_reg(TC2,0); /* Run in debug: 0 */
 
-	hri_tccount8_write_CC_reg(TC2, 0, 0x2); /* Compare/Capture Value: 0x2 */
+	hri_tccount8_write_CC_reg(TC2, 0, 0x0); /* Compare/Capture Value: 0x0 */
 
-	// hri_tccount8_write_CC_reg(TC2, 1 ,0x0); /* Compare/Capture Value: 0x0 */
+	hri_tccount8_write_CC_reg(TC2, 1 ,0x2); /* Compare/Capture Value: 0x2 */
 
-	// hri_tccount8_write_COUNT_reg(TC2,0x0); /* Counter Value: 0x0 */
-
-	hri_tc_write_PER_reg(TC2, 0x28); /* Period Value: 0x28 */
+	hri_tc_write_PER_reg(TC2, 0x27); /* Period Value: 0x27 */
 
 	// hri_tc_write_EVCTRL_reg(TC2,0 << TC_EVCTRL_MCEO0_Pos /* Match or Capture Channel 0 Event Output Enable: disabled
 	// */
@@ -101,4 +100,23 @@ int8_t TIMER_2_init()
 	hri_tc_write_CTRLA_ENABLE_bit(TC2, 1 << TC_CTRLA_ENABLE_Pos); /* Enable: enabled */
 
 	return 0;
+}
+
+void TIMER_2_enable() {
+
+	// gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
+	// gpio_set_pin_level(RDCLK0, true);
+	hri_tc_write_CTRLA_ENABLE_bit(TC2, 1 << TC_CTRLA_ENABLE_Pos);
+
+        gpio_set_pin_function(RDCLK0, PINMUX_PA17E_TC2_WO1);
+}
+
+void TIMER_2_disable() {
+
+
+	gpio_set_pin_level(RDCLK0, true);
+	gpio_set_pin_direction(RDCLK0, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(RDCLK0, GPIO_PIN_FUNCTION_OFF);
+
+	hri_tc_write_CTRLA_ENABLE_bit(TC2, 0 << TC_CTRLA_ENABLE_Pos);
 }
