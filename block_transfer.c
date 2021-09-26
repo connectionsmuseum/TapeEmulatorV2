@@ -56,8 +56,14 @@ void load_next_block(int track, int current_block_id) {
 
     int next_block_id = current_block_id + 1;
 
-    if((current_block_id != bufferA.block_id) &&
-       (current_block_id != bufferB.block_id)) {
+    bool bufferA_current =
+        (current_block_id == bufferA.block_id) &&
+        (track == bufferA.track);
+    bool bufferB_current =
+        (current_block_id == bufferB.block_id) &&
+        (track == bufferB.track);
+
+    if ((! bufferA_current) && (! bufferB_current)) {
 
         // Need to load the current block; preempts loading
         // the next block
@@ -174,7 +180,18 @@ void send_block(int track, int block_id) {
         buffer_to_send = &bufferB;
         use_bufferA = false;
     } else {
-        return;
+        // CTS Modified 8/17/21
+        load_next_block(track, block_id);
+
+        // Repetitious but necessary
+        if((block_id == bufferA.block_id) && (track == bufferA.track)) {
+            buffer_to_send = &bufferA;
+            use_bufferA = true;
+        } else if ((block_id == bufferB.block_id) &&
+                   (track == bufferB.track)) {
+            buffer_to_send = &bufferB;
+            use_bufferA = false;
+        }
     }
 
     // If the block is empty, we don't want to lock the buffer and
@@ -206,7 +223,7 @@ void send_block(int track, int block_id) {
 
     TIMER_2_enable();
     // Adjusted this to put the DATDET0 transition at ~7 bits into the preamble.
-    delay_us(190);
+    delay_us(170);
     gpio_set_pin_level(DATDET0, false);
 
     CRITICAL_SECTION_LEAVE();

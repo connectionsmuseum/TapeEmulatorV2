@@ -189,7 +189,6 @@ void update_state() {
         set_pin_active_low(TTBOTA0, false);
 
     }
-    // set_pin_active_low(TTBOTA0, false);
 
     // End of Tape
     if(tape_position >= MAX_TRACK_POSITION) {
@@ -221,6 +220,13 @@ void update_state() {
         set_pin_active_low(LPEW0, false);
     }
     */
+
+    // CTS: Tried this 9/26/21, did not seem to matter.
+    if((tape_state == STATE_REV) | (tape_state == STATE_FR)) {
+        set_pin_active_low(RWDINGA0, true);
+    } else {
+        set_pin_active_low(RWDINGA0, false);
+    }
 
     // These are both used for multiple purposes in this function,
     // and should use the post-update position.
@@ -257,6 +263,12 @@ void update_state() {
 
         write_track = (get_pin_active_low(WTA10)*2 +
                        get_pin_active_low(WTA00)*1);
+    }
+
+    if((get_pin_active_low(RTA10)*2 + get_pin_active_low(RTA00)*1) != read_track) {
+        set_pin_active_low(PA02, true);
+    } else {
+        set_pin_active_low(PA02, false);
     }
 
 #if DEBUG_ALWAYS_TRACK_ZERO == 1
@@ -412,7 +424,7 @@ int main(void)
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
 
-                snprintf(usb_printbuf, 99, "04 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
+                snprintf(usb_printbuf, 99, "06 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
                          tape_state, read_track, (int) dma_running(), tape_position, block, data_detect);
                 cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
 

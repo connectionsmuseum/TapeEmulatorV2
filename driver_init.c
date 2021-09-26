@@ -88,6 +88,9 @@ void SPI_0_PORT_init(void)
 	gpio_set_pin_function(PA01, PINMUX_PA01D_SERCOM1_PAD1);
 
 	// Set pin direction to input
+        
+        /* 
+         * CTS 9/26/21: PA18 is used for TTBOTA0, so disable the SERCOM pad.
 	gpio_set_pin_direction(PA18, GPIO_DIRECTION_IN);
 
 	gpio_set_pin_pull_mode(PA18,
@@ -99,6 +102,9 @@ void SPI_0_PORT_init(void)
 	                       GPIO_PULL_OFF);
 
 	gpio_set_pin_function(PA18, PINMUX_PA18C_SERCOM1_PAD2);
+        */
+	gpio_set_pin_function(PA18, GPIO_PIN_FUNCTION_OFF);
+	gpio_set_pin_direction(PA18, GPIO_DIRECTION_OUT);
 }
 
 void SPI_0_CLOCK_init(void)
@@ -575,6 +581,7 @@ void system_init(void)
 
 	gpio_set_pin_function(PB05RED, GPIO_PIN_FUNCTION_OFF);
 
+	gpio_set_pin_direction(PA02, GPIO_DIRECTION_OUT);
 
 	// GPIO on PB12
 
