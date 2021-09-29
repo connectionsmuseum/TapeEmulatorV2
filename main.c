@@ -221,13 +221,6 @@ void update_state() {
     }
     */
 
-    // CTS: Tried this 9/26/21, did not seem to matter.
-    if((tape_state == STATE_REV) | (tape_state == STATE_FR)) {
-        set_pin_active_low(RWDINGA0, true);
-    } else {
-        set_pin_active_low(RWDINGA0, false);
-    }
-
     // These are both used for multiple purposes in this function,
     // and should use the post-update position.
     if(tape_position >= 0) {
@@ -245,6 +238,7 @@ void update_state() {
     // DMA setup/callback for more precise timing.
     if((tape_state == STATE_FF) || (tape_state == STATE_REV)
         || (tape_state == STATE_FR)) {
+
         if((intrablock_position > IBG_BYTES) &&
                 (current_block > 0 || (current_block == 0 && read_track == 0))) {
             // data_detect variable only for console reporting.
@@ -254,6 +248,7 @@ void update_state() {
             data_detect = false;
             set_pin_active_low(DATDET0, false);
         }
+
     }
 
     // Get the track settings, only if we're not sending data.
@@ -360,7 +355,7 @@ int find_block(int tape_position) {
 
 int main(void)
 {
-    char usb_printbuf[200];
+    char usb_printbuf[300];
     FRESULT result;
 
     //
@@ -424,8 +419,8 @@ int main(void)
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
 
-                snprintf(usb_printbuf, 99, "06 State: %i, Track %i, DMA: %i, Position: %i, Block: %i, DATDET %i. \n\r",
-                         tape_state, read_track, (int) dma_running(), tape_position, block, data_detect);
+                snprintf(usb_printbuf, 200, "State: %i, Track %i, DMA: %i, Position: %i, Block: %i\n\r",
+                         tape_state, read_track, (int) dma_running(), tape_position, block);
                 cdcdf_acm_write((uint8_t *)usb_printbuf, strlen(usb_printbuf));
 
                 /*
