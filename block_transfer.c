@@ -3,6 +3,7 @@
 #include <atmel_start.h>
 #include <stdio.h>
 #include "block_transfer.h"
+#include "tape_states.h"
 #include "fatFS/ff.h"
 
 #define BLOCK_SIZE 2000
@@ -32,6 +33,8 @@ static bool _dma_running;
 
 volatile int DATDET_delay = 90;
 volatile int SPI_disable_delay = 340; // 400 was working ok. Split this into before and after end of clocking delay.
+
+int block_end_position;
 
 
 void init_block_buffer(struct spi_m_dma_descriptor *SPI) {
@@ -167,10 +170,12 @@ int _load_block_into_buffer(int track, int block_id, struct transfer_buffer *buf
 }
 
 
-void send_block(int track, int block_id) {
+void send_block(int track, int block_id, int end_position) {
     struct io_descriptor *io;
     struct transfer_buffer *buffer_to_send;
     bool use_bufferA = false;
+
+    block_end_position = end_position;
 
     if((block_id == bufferA.block_id) && (track == bufferA.track)) {
         buffer_to_send = &bufferA;
@@ -262,6 +267,7 @@ static void tx_complete_cb_bufferA(struct _dma_resource *resource) {
 
     delay_us(DATDET_delay);
     gpio_set_pin_level(DATDET0, true);
+    tape_position = block_end_position;
     _dma_running = false;
     _initialize_buffer(&bufferA);
 }
@@ -278,6 +284,7 @@ static void tx_complete_cb_bufferB(struct _dma_resource *resource) {
 
     delay_us(DATDET_delay);
     gpio_set_pin_level(DATDET0, true);
+    tape_position = block_end_position;
     _dma_running = false;
     _initialize_buffer(&bufferB);
 }

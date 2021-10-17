@@ -6,4 +6,5 @@
 #define STATE_FR 4
 
 extern int tape_state;
+extern int tape_position;
 

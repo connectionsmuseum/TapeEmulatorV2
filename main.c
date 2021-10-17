@@ -55,12 +55,16 @@ volatile int debug_tick_flag = 0;
 //
 // IBG is 1.55 * 1600/8 = 310 bytes
 #define FAST_SPEED 45
-#define SLOW_SPEED 15
+#define SLOW_SPEED 16
 // "Correct" IBG length is 310
 #define IBG_BYTES 275
 #define BLOCK_BYTES 1668
 #define MAX_TRACK_POSITION 740000 // Added some extra padding
-#define TAPE_START_POSITION -7200
+#define TAPE_START_POSITION -14400
+#define TAPE_BOT_POSITION (-14400 + 3200)
+#define TAPE_EOT_POSITION (740000 - 3200)
+
+// #define TAPE_START_POSITION -7200
 
 // Define the "current block" as including the IBG that preceeds the data.
 // Calculate the current block with:
@@ -102,7 +106,8 @@ void update_state() {
 
     if(init_flag) {
         // Not sure if we're supposed to display rewinding during init?
-        // set_pin_active_low(RWDINGA0, true);
+        set_pin_active_low(RWDINGA0, true);
+        set_pin_active_low(TIMA0, true);
 
         // TTRDY0 has already been taken inactive during interrupt
 
@@ -112,7 +117,7 @@ void update_state() {
         }
 
         cancel_transfer();
-        tape_position = TAPE_START_POSITION;
+        tape_position = TAPE_BOT_POSITION + 3000;
         set_pin_active_low(DATDET0, false);
 
         // Might as well load a block while we're here.
@@ -127,6 +132,7 @@ void update_state() {
         }
 
         set_pin_active_low(RWDINGA0, false);
+        set_pin_active_low(TIMA0, false);
         set_pin_active_low(TTRDY0, true);
 
         init_flag = false;
@@ -201,8 +207,8 @@ void update_state() {
     // Early warning holes
     // This is a total guess. We might need to add some extra space
     // on the tape before the first block.
-    if((tape_position <= TAPE_START_POSITION)
-            || (tape_position >= MAX_TRACK_POSITION)) {
+    if((tape_position <= TAPE_BOT_POSITION)
+            || (tape_position >= (MAX_TRACK_POSITION - 3200) )) {
         set_pin_active_low(LPEW0, true);
     } else {
         set_pin_active_low(LPEW0, false);
@@ -270,15 +276,13 @@ void update_state() {
      read_track = 0;
 #endif
 
-#if DEBUG_NEVER_CARTWE0 == 1
-    set_pin_active_low(CARTWE0, false);
-#else
+     /*
     if(read_track == 0) {
         set_pin_active_low(CARTWE0, false);
     } else {
         set_pin_active_low(CARTWE0, true);
     }
-#endif
+    */
 
     /*
      * Start transfers
@@ -288,7 +292,8 @@ void update_state() {
         if(!dma_running()) {
             if(intrablock_position > IBG_BYTES) {
 
-                send_block(read_track, current_block);
+                int block_end_pos = (current_block + 1) * (IBG_BYTES + BLOCK_BYTES);
+                send_block(read_track, current_block, block_end_pos);
 
             }
         }
@@ -395,7 +400,7 @@ int main(void)
     // Transport Ready
     set_pin_active_low(TTRDY0, true);
     // Cartridge is write enabled (from CTT to CTTC)
-    set_pin_active_low(CARTWE0, false);
+    set_pin_active_low(CARTWE0, true);
     // Tape OFF reel status (from CTT)
     set_pin_active_low(TOR0, false);
     // Not rewinding
