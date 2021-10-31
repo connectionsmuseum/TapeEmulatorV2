@@ -124,7 +124,9 @@ void update_state() {
         current_block = find_block(tape_position);
         load_next_block(read_track, current_block);
 
-        delay_ms(1000);
+        // Tape init must finish in less than 600 ms.
+        // Rewinding might be able to go on longer, but we haven't tested it.
+        delay_ms(400);
 
         if (cdcdf_acm_is_enabled()) {
             snprintf(usb_printbuf, 99, "Done Initializing \n\r");
