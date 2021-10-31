@@ -182,6 +182,13 @@ void update_state() {
         tape_state = STATE_IDLE;
     }
 
+    if((tape_state == STATE_IDLE) && (previous_tape_state == STATE_FF)) {
+
+        int tmp_current_block;
+        tmp_current_block = find_block(tape_position);
+        tape_position = (tmp_current_block + 1)*(IBG_BYTES + BLOCK_BYTES);
+    }
+
     // "Tape is Moving" status lead
     if(tape_state != STATE_IDLE) {
         set_pin_active_low(TIMA0, true);
@@ -247,8 +254,10 @@ void update_state() {
     if((tape_state == STATE_FF) || (tape_state == STATE_REV)
         || (tape_state == STATE_FR)) {
 
+        // This is still very uncertain, not sure what we are supposed to do here.
         if((intrablock_position > IBG_BYTES) &&
-                (current_block > 0 || (current_block == 0 && read_track == 0))) {
+                (current_block > 0)) {
+                //(current_block > 0 || (current_block == 0 && read_track == 0))) {
             // data_detect variable only for console reporting.
             data_detect = true;
             set_pin_active_low(DATDET0, true);
@@ -257,6 +266,11 @@ void update_state() {
             set_pin_active_low(DATDET0, false);
         }
 
+    }
+
+    if(tape_state == STATE_IDLE) {
+        data_detect = false;
+        set_pin_active_low(DATDET0, false);
     }
 
     // Get the track settings, only if we're not sending data.
