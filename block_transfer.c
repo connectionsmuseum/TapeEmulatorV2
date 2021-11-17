@@ -247,6 +247,8 @@ void cancel_transfer() {
     _dma_running = false;
     bufferA.locked = false;
     bufferB.locked = false;
+    TIMER_2_disable();
+
 }
 
 bool dma_running() {

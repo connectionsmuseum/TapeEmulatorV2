@@ -55,13 +55,17 @@ volatile int debug_tick_flag = 0;
 //
 // IBG is 1.55 * 1600/8 = 310 bytes
 #define FAST_SPEED 45
+// Working speed is 16
 #define SLOW_SPEED 16
 // "Correct" IBG length is 310
 #define IBG_BYTES 275
 #define BLOCK_BYTES 1668
 #define MAX_TRACK_POSITION 740000 // Added some extra padding
-#define TAPE_START_POSITION -14400
-#define TAPE_BOT_POSITION (-14400 + 3200)
+// #define TAPE_START_POSITION -14400
+//  -14440 + 3200 was working on 11/14/21. Experimenting with different values.
+// #define TAPE_BOT_POSITION (-14400 + 3200)
+#define TAPE_BOT_POSITION -7200
+#define TAPE_START_POSITION TAPE_BOT_POSITION
 #define TAPE_EOT_POSITION (740000 - 3200)
 
 // #define TAPE_START_POSITION -7200
@@ -182,18 +186,39 @@ void update_state() {
         tape_state = STATE_IDLE;
     }
 
+    // End fast forward on the start of the next block.
     if((tape_state == STATE_IDLE) && (previous_tape_state == STATE_FF)) {
 
         int tmp_current_block;
+        int tmp_intrablock_position;
+        tmp_intrablock_position = tape_position - current_block*(IBG_BYTES + BLOCK_BYTES);
         tmp_current_block = find_block(tape_position);
-        tape_position = (tmp_current_block + 1)*(IBG_BYTES + BLOCK_BYTES);
+        if(tmp_intrablock_position > IBG_BYTES) {
+            tape_position = (tmp_current_block + 1)*(IBG_BYTES + BLOCK_BYTES);
+        }
     }
+
+    // End fast reverse on the start of the previous block.
+    /*
+    if((tape_state == STATE_IDLE) && (previous_tape_state == STATE_FR)) {
+
+        int tmp_current_block;
+        int tmp_intrablock_position;
+        tmp_intrablock_position = tape_position - current_block*(IBG_BYTES + BLOCK_BYTES);
+        tmp_current_block = find_block(tape_position);
+        if(tmp_intrablock_position > IBG_BYTES) {
+            tape_position = (tmp_current_block)*(IBG_BYTES + BLOCK_BYTES);
+        }
+    }
+    */
 
     // "Tape is Moving" status lead
     if(tape_state != STATE_IDLE) {
         set_pin_active_low(TIMA0, true);
+	gpio_set_pin_level(PB04GREEN, true);
     } else {
         set_pin_active_low(TIMA0, false);
+	gpio_set_pin_level(PB04GREEN, false);
     }
 
     // Beginning of Tape
@@ -246,6 +271,15 @@ void update_state() {
         intrablock_position = 0;
     }
 
+    // Get the track settings, only if we're not sending data.
+    if(!dma_running()) {
+        read_track = (get_pin_active_low(RTA10)*2 +
+                      get_pin_active_low(RTA00)*1);
+
+        write_track = (get_pin_active_low(WTA10)*2 +
+                       get_pin_active_low(WTA00)*1);
+    }
+
     // Data Detect
     //
     // We do data detect here *only* for reverse moves;
@@ -254,10 +288,13 @@ void update_state() {
     if((tape_state == STATE_FF) || (tape_state == STATE_REV)
         || (tape_state == STATE_FR)) {
 
-        // This is still very uncertain, not sure what we are supposed to do here.
-        if((intrablock_position > IBG_BYTES) &&
-                (current_block > 0)) {
-                //(current_block > 0 || (current_block == 0 && read_track == 0))) {
+        bool is_block = false;
+        bool track0 = (read_track == 0);
+        if (track0 && (current_block == 0)) { is_block = true; }
+        if (track0 && (current_block >= 2)) { is_block = true; }
+        if (!track0 && (current_block >= 1)) { is_block = true; }
+
+        if((intrablock_position > IBG_BYTES) && is_block) {
             // data_detect variable only for console reporting.
             data_detect = true;
             set_pin_active_low(DATDET0, true);
@@ -273,32 +310,6 @@ void update_state() {
         set_pin_active_low(DATDET0, false);
     }
 
-    // Get the track settings, only if we're not sending data.
-    if(!dma_running()) {
-        read_track = (get_pin_active_low(RTA10)*2 +
-                      get_pin_active_low(RTA00)*1);
-
-        write_track = (get_pin_active_low(WTA10)*2 +
-                       get_pin_active_low(WTA00)*1);
-    }
-
-    if((get_pin_active_low(RTA10)*2 + get_pin_active_low(RTA00)*1) != read_track) {
-        set_pin_active_low(PA02, true);
-    } else {
-        set_pin_active_low(PA02, false);
-    }
-
-#if DEBUG_ALWAYS_TRACK_ZERO == 1
-     read_track = 0;
-#endif
-
-     /*
-    if(read_track == 0) {
-        set_pin_active_low(CARTWE0, false);
-    } else {
-        set_pin_active_low(CARTWE0, true);
-    }
-    */
 
     /*
      * Start transfers
@@ -313,7 +324,9 @@ void update_state() {
 
             }
         }
-    } else {
+    } 
+
+    if(tape_state != STATE_FORWARD && previous_tape_state != STATE_FORWARD) {
         // Disable transfers if we're not in normal-forward.
         cancel_transfer();
     }
@@ -424,6 +437,8 @@ int main(void)
 
     set_pin_active_low(DATDET0, false);
 
+    TIMER_2_disable();
+
     while(1) {
 
         if(tick_flag > 0) {
@@ -435,7 +450,7 @@ int main(void)
             debug_tick_flag = 0;
             // flash_pin(D13, &d13_state);
             // flash_pin(D35, &d35_state);
-            flash_pin(PB04GREEN, &pb04_state);
+            // flash_pin(PB04GREEN, &pb04_state);
             // Print some status to USB.
             if (cdcdf_acm_is_enabled()) {
                 int block = find_block(tape_position);
